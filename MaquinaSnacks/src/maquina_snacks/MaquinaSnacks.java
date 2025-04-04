@@ -54,7 +54,12 @@ public class MaquinaSnacks {
                 System.out.println("--------------------------------------------");
                 System.out.println("Ingrese el id del snack que desea comprar:");
                 idSnackCompra = Integer.parseInt(sc.nextLine());
-                System.out.println("Se ha añadido el snack "+ (listaSnacks.snacks.get(idSnackCompra-1).toString()) + " a la lista de compras." );
+                if(listaSnacks.snacks.get(idSnackCompra-1) != null){
+                    System.out.println("Se ha añadido el snack "+ (listaSnacks.snacks.get(idSnackCompra-1).toString()) + " a la lista de compras." );
+                }else{
+                    System.out.println("No se ha encontrado un snack con el id "+idSnackCompra+", intentelo de nuevo...");
+                }
+                
                 System.out.println("........................................... ");
                 listaCompra.add(listaSnacks.snacks.get(idSnackCompra-1));
                 
@@ -78,6 +83,7 @@ public class MaquinaSnacks {
                 break;
             case 4:
                 System.out.println("Saliendo del programa...");
+                System.exit(0);
                 break;
             default:
                 System.out.println("Opcion no valida, intente de nuevo...");
