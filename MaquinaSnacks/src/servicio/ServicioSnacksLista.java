@@ -1,13 +1,14 @@
-package maquina_snacks;
+package servicio;
 
+import dominio.Snack;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Snacks {
+public class ServicioSnacksLista implements IServicioSnacks{
     
     static List<Snack> snacks;
 
-    public Snacks() {
+    public ServicioSnacksLista() {
         snacks = new ArrayList<>();
     }
     
@@ -27,7 +28,7 @@ public class Snacks {
         }
     }
 
-    public static List<Snack> getSnacks() {
+    public List<Snack> getSnacks() {
         return snacks;
     }
     

@@ -1,4 +1,4 @@
-package maquina_snacks;
+package dominio;
 
 public class Snack {
     
@@ -39,6 +39,9 @@ public class Snack {
         return idSnack + ". " + nombre + ", $" + precio;
     }
     
+    public String escribirSnack(){
+        return idSnack + "," + nombre + "," + precio;
+    }
     
     
     

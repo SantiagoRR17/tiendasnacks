@@ -1,0 +1,4 @@
+1,Mcflurry,10500.0
+2,Mani,5500.0
+3,Jumbo Brownie,4700.0
+4,Jet negra,4500.0
