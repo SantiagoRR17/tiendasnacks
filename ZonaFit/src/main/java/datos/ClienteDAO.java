@@ -115,17 +115,60 @@ public class ClienteDAO implements IClienteDAO{
 
     @Override
     public boolean modificarCliente(Cliente cliente) {
+        PreparedStatement ps;
+        Connection con = Conexion.getConexion();
+        var sql = "UPDATE cliente SET nombre = ?, apellido = ?, membresia = ? WHERE id_cliente = ?";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, cliente.getNombre());
+            ps.setString(2, cliente.getApellido());
+            ps.setInt(3,cliente.getMembresia());
+            ps.setInt(4,cliente.getId());
+            ps.execute();
+            
+            return true;
+            
+        } catch (Exception e) {
+            System.out.println("Error al modificar el cliente: "+ e.getMessage());
+        }
+        finally{
+            try {
+                con.close();
+            } catch (Exception e) {
+                System.out.println("Error al cerrar conexion: " + e.getMessage());
+            }
+        }
         return false;
     }
 
     @Override
     public boolean eliminarCliente(Cliente cliente) {
+        PreparedStatement ps;
+        Connection con = Conexion.getConexion();
+        var sql = "DELETE FROM cliente WHERE id_cliente = ?";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setInt(1,cliente.getId());
+            ps.execute();
+            
+            return true;
+            
+        } catch (Exception e) {
+            System.out.println("Error al eliminar el cliente: "+ e.getMessage());
+        }
+        finally{
+            try {
+                con.close();
+            } catch (Exception e) {
+                System.out.println("Error al cerrar conexion: " + e.getMessage());
+            }
+        }
         return false;
     }
-    
+    /*
     public static void main(String[] args) {
         IClienteDAO clienteDao = new ClienteDAO();
-        /* Listar clientes
+         Listar clientes
         
         */
         
@@ -139,7 +182,7 @@ public class ClienteDAO implements IClienteDAO{
         }else{
             System.out.println("No se encontro cliente: " + cliente1.getId());
         }
-        */
+        
         var cliente2 = new Cliente("Dante","Musulman",18);
         var agregado = clienteDao.agregarCliente(cliente2);
         if(agregado){
@@ -148,13 +191,33 @@ public class ClienteDAO implements IClienteDAO{
             System.out.println("No se ha podido crear al cliente: " + cliente2.toString());
         }
         
-        System.out.println("-----------Listar clientes-----------");
         
+        var cliente2 = new Cliente(4,"Dante","Musulman",18);
+        
+        System.out.println("Informacion actual: " + cliente2.toString());
+        cliente2.setApellido("Sakata");
+        cliente2.setMembresia(17);
+        var agregado = clienteDao.modificarCliente(cliente2);
+        if(agregado){
+            System.out.println("Se ha modificado el cliente " + cliente2.toString());
+        }else{
+            System.out.println("No se ha podido modfiicar al cliente: " + cliente2.toString());
+        }
+        System.out.println("-----------Listar clientes antes-----------");
         var clientes = clienteDao.listarClientes();
         clientes.forEach(System.out::println);
+        var clienteDel = new Cliente(3);
+        var agregado = clienteDao.eliminarCliente(clienteDel);
+        if(agregado){
+            System.out.println("Se ha eliminado el cliente " + clienteDel.toString());
+        }else{
+            System.out.println("No se ha podido eliminar al cliente: " + clienteDel.toString());
+        }
+        System.out.println("-----------Listar clientes ahora-----------");
+        clientes = clienteDao.listarClientes();
+        clientes.forEach(System.out::println);
         
-        
-    }
+    }*/
     
     
 }
